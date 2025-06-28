@@ -1,14 +1,13 @@
 const { pool,bcrypt } = require("../dataBase.js");
 
-
-createAdmin = async (username, userEmail, Password) => {
+createTeacher = async (prn,username, userEmail, Password) => {
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(Password,saltRounds)
 
     const result = await pool.query(
-      "INSERT INTO admin (admin_name,admin_email,admin_password) VALUES ($1,$2,$3) RETURNING admin_id, admin_name, admin_email",
-      [username, userEmail, hashedPassword]
+      "INSERT INTO teachers (prn,teacher_name,year_joined) VALUES ($1,$2,$3,$4) RETURNING admin_id, admin_name, admin_email",
+      [prn,username, userEmail, hashedPassword]
     );
     console.log(result.rows[0])
     return result.rows[0]
@@ -21,10 +20,10 @@ createAdmin = async (username, userEmail, Password) => {
 };
 
 findAdminByUsernameAndMatchPasswords = async (email,password) => {
-try{
-    const result = await pool.query("SELECT * FROM admin WHERE admin_email = $1", [
+  const result = await pool.query("SELECT * FROM admin WHERE admin_email = $1", [
     email,
   ]);
+
   if (result.rows.length==0) {error:'USER NOT FOUND'}
   const user = result.rows[0];
 
@@ -35,13 +34,6 @@ try{
   }else{
     return {error:"invalid password"}
   }
-
-
-}catch(err){
-  console.log(err)
-  
-}
-
 
 };
 

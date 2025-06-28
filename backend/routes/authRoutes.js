@@ -1,12 +1,12 @@
 const {Router} = require('express')
-const {registerAdmin}= require('../controller/authController')
+const {registerAdmin,loginAdmin}= require('../controller/authController')
 
 const router = Router()
 
 
 router.post('/AdminSignup',registerAdmin)
-router.get('/test',(req,res)=>{
-    res.json({suss:"you are on test"})
-})
+router.post('/AdminLogin',loginAdmin)
+
+// router.post('/TeacherSignup',registerTeacher)
 
 module.exports = router 

@@ -6,6 +6,7 @@ function checkForAuthenticationCookieOfAdmin(cookieName) {
 
     if (!tokenCookieValue) {
       // Instead of throw, pass an error to next()
+      res.status(401).json({error:"You need to be Admin to access this service."})
       return next(new Error("You need to be Admin to access this service."));
     }
 
