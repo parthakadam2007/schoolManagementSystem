@@ -1,0 +1,35 @@
+# Python cache/compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Credentials and sensitive files
+production/*.json
+*graceful-path-*.json
+*credentials.json
+*.env
+*.env.local
+.environments
+
+# Ignore virtual environments
+venv/
+env/
+*.venv
+
+# Node.js (if applicable)
+node_modules/
+
+# DB, logs, PDFs, temp files
+*.log
+*.tmp
+*.sqlite3
+*.pdf
+*.txt
+db/
+*tempCodeRunnerFile.py
+# IDE and system files
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+backend/*.json
