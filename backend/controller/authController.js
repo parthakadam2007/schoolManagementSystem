@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
 const {createAdmin,findAdminByUsernameAndMatchPasswords}= require('../models/adminModels.js')
-const {validateTokenForAdmin,createTokenForAdmin} = require('../services/auth.js')
+const {createTeacher, findTeacherByUsernameAndMatchPasswords} = require('../models/teacherModels.js')
+const {createStudent,findStudentByUsernameAndMatchPasswords} = require('../models/studentModels')
+const {createTokenForAdmin,createTokenForStudent,createTokenForTeacher} = require('../services/auth.js')
+
+
 
 registerAdmin = async(req,res) =>{
     const {username,userEmail,password} = req.body
@@ -23,6 +27,7 @@ loginAdmin = async(req,res)=>{
     const {email,password} = req.body
     try{
         const result = await findAdminByUsernameAndMatchPasswords(email,password)
+        console.log("reslult",result)
         if(result.error) return res.status(401).json({error:'Login Failed'}) 
         console.log('result',result)
         const token = createTokenForAdmin(result)
@@ -30,7 +35,75 @@ loginAdmin = async(req,res)=>{
         res.cookie('admin',token);
         res.status(200).json({sucess:token})
 
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error:'Login Failed'})        
+    }
+}
 
+//teacher
+
+registerTeacher = async(req,res) =>{
+    const {username,userEmail,password,prn,year_joined} = req.body
+    console.log({username,userEmail,password,prn,year_joined})
+    try{
+        const user = await createTeacher(prn,username, userEmail, password,year_joined)
+        if(user.error) return res.status(500).json({error:user.error})      
+
+        const token = createTokenForTeacher(user)
+        res.status(200).json({sucess:token})
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error:'Registration Failed'})
+    }
+}
+
+loginTeacher = async(req,res)=>{
+    const {email,password} = req.body
+    try{
+        const result = await findTeacherByUsernameAndMatchPasswords(email,password)
+        if(result.error) return res.status(401).json({error:'Login Failed'}) 
+        console.log('result',result)
+        const token = createTokenForTeacher(result)
+
+        res.cookie('teacher',token);
+        res.status(200).json({sucess:token})
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error:'Login Failed'})        
+    }
+}
+//student
+
+registerStudent = async(req,res) =>{
+    const {prn,username,userEmail,password,roll_no,year_joined,division_id,branch_id} = req.body
+    try{
+        const user = await createStudent(prn,username,userEmail,password,roll_no,year_joined,division_id,branch_id)
+        if(user.error) return res.status(401).json({error:user.error})      
+
+        const token = createTokenForStudent(user)
+        res.status(200).json({sucess:token})
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error:'Registration Failed'})
+    }
+}
+
+loginStudent = async(req,res)=>{
+    const {email,password} = req.body
+    try{
+        const result = await findStudentByUsernameAndMatchPasswords(email,password)
+        if(result.error) return res.status(401).json({error:'Login Failed'}) 
+        console.log('result',result)
+        const token = createTokenForStudent(result)
+
+        res.cookie('student',token);
+        res.status(200).json({sucess:token})
 
     }catch(err){
         console.log(err)
@@ -41,5 +114,11 @@ loginAdmin = async(req,res)=>{
 
 module.exports= {
     registerAdmin,
-    loginAdmin
+    loginAdmin,
+
+    registerTeacher,
+    loginTeacher,
+
+    registerStudent,
+    loginStudent
 }

@@ -29,16 +29,9 @@ app.use('/api/auth',authRoutes)
 app.use('/api/admin',checkForAuthenticationCookieOfAdmin('admin'),adminRoutes)
 
 
-
-
-
-app.get('/',checkForAuthenticationCookieOfAdmin('admin'),(req,res)=>{
-    getUsers(req,res)
+app.get('/',(req,res)=>{
+  res.json({hello:'hello world'})
 })
-
-
-
-
 
 
 app.listen(PORT,()=>{
