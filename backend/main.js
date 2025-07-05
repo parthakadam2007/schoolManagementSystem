@@ -1,3 +1,5 @@
+
+require('dotenv').config();
 const express = require('express')
 const cors  = require('cors')
 const bodyParser = require('body-parser')
@@ -5,11 +7,14 @@ const cookieParser = require('cookie-parser');
 
 const {pool} = require('./dataBase')
 const app = express()
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
+console.log(`Database connected on port ${process.env.DB_PORT}`)
 
 app.use(cors())
 app.use(cookieParser());
 app.use(bodyParser.json())
+
+app.use(express.json()); // ✅ parses JSON
 app.use(
   bodyParser.urlencoded({
     extended: true,

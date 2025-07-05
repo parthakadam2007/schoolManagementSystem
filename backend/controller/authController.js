@@ -7,10 +7,13 @@ const {createTokenForAdmin,createTokenForStudent,createTokenForTeacher} = requir
 
 
 registerAdmin = async(req,res) =>{
+    console.log('--->',req.body)
+
     const {username,userEmail,password} = req.body
     try{
         const user = await createAdmin(username,userEmail,password)
-        if(user.error) return res.status(401).json({error:user.error})      
+        console.log('user---->',user)
+        if(user?.error) return res.status(401).json({error:user.error})      
 
         const token = createTokenForAdmin(user)
         res.cookie('admin', token);
