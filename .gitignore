@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 
 # Credentials and sensitive files
-production/*.json
+
 *graceful-path-*.json
 *credentials.json
 *.env
