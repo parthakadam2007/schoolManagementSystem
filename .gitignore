@@ -5,8 +5,6 @@ __pycache__/
 
 # Credentials and sensitive files
 
-*graceful-path-*.json
-*credentials.json
 *.env
 *.env.local
 .environments
@@ -32,4 +30,3 @@ db/
 .DS_Store
 Thumbs.db
 desktop.ini
-backend/*.json
