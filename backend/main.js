@@ -15,7 +15,9 @@ const allowedOrigins = [
   'https://myfrontend.com',
   'https://another-frontend.netlify.app',
   'https://schoolmanagementsystem-1-i1d8.onrender.com',
-  'https://school-management-system-black-one.vercel.app/'
+  'https://school-management-system-black-one.vercel.app',
+  'https://school-management-system-git-main-parthakadam2007s-projects.vercel.app',
+  'https://school-management-system-black-one.vercel.app'
 ];
 
 app.use(cors({
