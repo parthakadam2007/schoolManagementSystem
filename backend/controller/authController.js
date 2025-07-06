@@ -16,7 +16,11 @@ registerAdmin = async(req,res) =>{
         if(user?.error) return res.status(401).json({error:user.error})      
 
         const token = createTokenForAdmin(user)
-        res.cookie('admin', token);
+        res.cookie('admin', token,{
+            httpOnly:true,
+            secure:true,
+            sameSite:'None'
+        });
         res.status(200).json({sucess:token})
 
 
@@ -35,7 +39,11 @@ loginAdmin = async(req,res)=>{
         console.log('result',result)
         const token = createTokenForAdmin(result)
 
-        res.cookie('admin',token);
+        res.cookie('admin',token,{
+            httpOnly:true,
+            secure:true,
+            sameSite:'None'
+        });
         res.status(200).json({sucess:token})
 
     }catch(err){
@@ -51,7 +59,13 @@ registerTeacher = async(req,res) =>{
     console.log({username,userEmail,password,prn,year_joined})
     try{
         const user = await createTeacher(prn,username, userEmail, password,year_joined)
-        if(user.error) return res.status(500).json({error:user.error})      
+        if(user.error) return res.status(500).json({error:user.error}) 
+        
+            res.cookie('teacher', token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'None',
+});
 
         const token = createTokenForTeacher(user)
         res.status(200).json({sucess:token})
@@ -71,7 +85,11 @@ loginTeacher = async(req,res)=>{
         console.log('result',result)
         const token = createTokenForTeacher(result)
 
-        res.cookie('teacher',token);
+        res.cookie('teacher',token,{
+            httpOnly:true,
+            secure:true,
+            sameSite:'None'
+        });
         res.status(200).json({sucess:token})
 
     }catch(err){
@@ -88,6 +106,12 @@ registerStudent = async(req,res) =>{
         if(user.error) return res.status(401).json({error:user.error})      
 
         const token = createTokenForStudent(user)
+        res.cookie('student', token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'None',
+}); 
+
         res.status(200).json({sucess:token})
 
 
@@ -105,7 +129,11 @@ loginStudent = async(req,res)=>{
         console.log('result',result)
         const token = createTokenForStudent(result)
 
-        res.cookie('student',token);
+        res.cookie('student',token, {
+  httpOnly: true,       // good security practice
+  secure: true,         // required if SameSite=None
+  sameSite: 'None',     // needed for cross-origin
+});
         res.status(200).json({sucess:token})
 
     }catch(err){
