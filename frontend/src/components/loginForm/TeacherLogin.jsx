@@ -1,13 +1,14 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
-const AdminSignup = () => {
-  const AdminSignupHandle=async(values)=>{
+const TeacherSignup = () => {
+  const TeacherSignupHandle=async(values)=>{
     try{
        const  {email,password} = values
 
-       const res = await fetch('https://schoolmanagementsystem-1-i1d8.onrender.com/api/auth/AdminLogin',{
+       const res = await fetch('https://schoolmanagementsystem-1-i1d8.onrender.com/api/auth/TeacherLogin',{
         method:'POST',
+        credentials: 'include', 
         headers:{
             "Content-Type":'application/json'
         },
@@ -28,7 +29,7 @@ const AdminSignup = () => {
 
   const onFinish = values => {
     console.log('Received values of form: ', values);
-    AdminSignupHandle(values)
+    TeacherSignupHandle(values)
     
   };
   return (
@@ -38,8 +39,9 @@ const AdminSignup = () => {
       style={{ maxWidth: 360 }}
       onFinish={onFinish}
       method='POST'
-      part='/api/adminSignup'
+
     >
+      Teacher
       <Form.Item
         name="email"
         rules={[{ required: true, message: 'Please input your Username!' }]}
@@ -70,4 +72,4 @@ const AdminSignup = () => {
     </Form>
   );
 };
-export default AdminSignup;
+export default TeacherSignup;

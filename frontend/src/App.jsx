@@ -3,13 +3,19 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AdminSignup from './components/AdminSignup'
+import AdminLogin from './components/loginForm/AdminLogin'
+import StudentLogin from './components/loginForm/StudentLogin'
+import TeacherLogin from './components/loginForm/TeacherLogin';
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/AdminSignup" element={<AdminSignup />} />
+        <Route path="/AdminLogin" element={<AdminLogin />} />
+                <Route path="/StudentLogin" element={<StudentLogin />} />
+                <Route path="/TeacherLogin" element={<TeacherLogin />} />
+
       </Routes>
     </BrowserRouter>
   )
