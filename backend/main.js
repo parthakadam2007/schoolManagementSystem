@@ -10,8 +10,16 @@ const app = express()
 const PORT = process.env.PORT || 8000;
 console.log(`Database connected on port ${process.env.DB_PORT}`)
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://myfrontend.com',
+  'https://another-frontend.netlify.app',
+  'https://schoolmanagementsystem-1-i1d8.onrender.com',
+  'https://school-management-system-black-one.vercel.app/'
+];
+
 app.use(cors({
-  origin:'http://localhost:5173',
+  origin:allowedOrigins,
    credentials: true
 }))
 app.use(cookieParser());
