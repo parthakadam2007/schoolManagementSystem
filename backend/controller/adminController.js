@@ -27,19 +27,31 @@ const createStudentController = async (req, res) => {
       division_id,
       branch_id
     );
-    if (response.error) return res.status(409).json({ error: response.error });
+    console.log(  prn,
+      name,
+      email,
+      password,
+      roll_no,
+      year_joined,
+      division_id,
+      branch_id)
+    if (response?.error  ) return res.status(409).json({ error: response.error });
+   
 
     res.status(200).json({ response: response });
   } catch (err) {
-    res.status(500).json({ error: err });
+    console.log("error while creatiing stdent,",err)
+    res.status(500).json({ error: {err} });
   }
 };
 
 const getUsers = (request, response) => {
   pool.query(`SELECT * FROM students `, (error, results) => {
     if (error) {
+      console.log(error)
       throw error;
     }
+    console.log('l------->getUsers')
     response.status(200).json(results.rows);
   });
 };

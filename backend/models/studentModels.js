@@ -119,12 +119,12 @@ findStudent = async (prn) => {
     console.log(response.rows[0])
     return response.rows[0];
   } catch (err) {
-    return { error: err };
+    return { error: 'error in findStudent' };
   }
 };
 
 module.exports = {
-  createStudent,
+    createStudent,
   findStudentByUsernameAndMatchPasswords,
   editStudent,
   findStudent

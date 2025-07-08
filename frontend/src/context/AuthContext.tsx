@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { User, AuthState } from '../types';
 
+
+import {HandleSignIn} from '../scripts/fetch'
+
 interface AuthContextType extends AuthState {
   login: (email: string, password: string, role: 'student' | 'teacher' | 'admin') => Promise<boolean>;
   register: (userData: {
@@ -36,10 +39,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string, role: 'student' | 'teacher' | 'admin'): Promise<boolean> => {
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      
     
     // Mock authentication - in real app, this would be an API call
-    if (email && password) {
+    let resoponse 
+
+    switch (role){
+      case 'admin':
+         resoponse = await HandleSignIn({email,password},'https://schoolmanagementsystem-1-i1d8.onrender.com/api/auth/AdminLogin')
+         break
+      case 'student':
+         resoponse =await HandleSignIn({email,password},'https://schoolmanagementsystem-1-i1d8.onrender.com/api/auth/StudentLogin')
+         break
+      case 'teacher':
+         resoponse = await HandleSignIn({email,password},'https://schoolmanagementsystem-1-i1d8.onrender.com/api/auth/StudentLogin')
+        break
+    }
+    if(resoponse?.error){
+      return true
+    }
+
+      
       const user: User = {
         id: Date.now().toString(),
         email,
@@ -51,11 +71,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         user,
         isAuthenticated: true,
       });
-      
-      return true;
-    }
-    
-    return false;
+
+    return true
   };
 
   const register = async (userData: {
