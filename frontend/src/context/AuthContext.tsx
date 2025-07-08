@@ -55,8 +55,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
          resoponse = await HandleSignIn({email,password},'https://schoolmanagementsystem-1-i1d8.onrender.com/api/auth/StudentLogin')
         break
     }
-    if(resoponse?.error){
-      return true
+    if(!resoponse.success){
+      return false
     }
 
       
