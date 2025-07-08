@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
         setError('Invalid email or password');
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError('User not found or invalid credentials');
     } finally {
       setIsLoading(false);
     }
